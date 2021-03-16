@@ -13,6 +13,10 @@ from heapq import nlargest
 import operator
 import random
 
+@api_view(['GET'])
+def sth(request):
+    return Response("Divyansh")
+
 # Create your views here.
 @api_view(['POST'])
 def create_summary(request):
@@ -39,7 +43,7 @@ def create_summary(request):
             for token in word_tokenize(sentence.lower()):
                 if token in freqs:
                     important_sentences[i] += freqs[token]
-        print(important_sentences.get)
+
         number_sentences = int(len(sentences) * 0.20)
         index_important_sentences = nlargest(number_sentences,important_sentences,important_sentences.get)
 
