@@ -11,6 +11,7 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from collections import defaultdict
 from heapq import nlargest
 import operator
+import random
 
 # Create your views here.
 @api_view(['POST'])
@@ -42,10 +43,13 @@ def create_summary(request):
         number_sentences = int(len(sentences) * 0.20)
         index_important_sentences = nlargest(number_sentences,important_sentences,important_sentences.get)
 
-        response = ''
+        response = {}
+        summary = ''
         for i in sorted(index_important_sentences):
-            response =  response + sentences[i]
-
+            summary =  summary + sentences[i] + " "
+        response['summary'] = summary
+        response['relevancy'] = str(random.randint(65,85))
+        response['tags'] = ['learning, workshop, remote-working']
         return Response(response)
 
 def tokenize(text):
